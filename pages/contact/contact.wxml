@@ -1,0 +1,65 @@
+<view class="container">
+    <image class="bg-layer" src="/images/bg1.png"></image>
+    <image class="decoration-layer" src="/images/decoration-bg.png"></image>
+
+    <view class="header-fixed {{isHeaderHidden ? 'hidden' : ''}}">
+        <view class="grid-title-container">浙建智造</view>
+    </view>
+
+    <scroll-view scroll-y class="form-scroll-container" bindscroll="onScroll">
+        <view class="page-header">信息留言</view>
+        
+        <view class="form-group">
+            <view class="form-label">姓名</view>
+            <input class="form-input" placeholder="请输入您的姓名" placeholder-class="ph-color" model:value="{{name}}" />
+        </view>
+
+        <view class="form-group">
+            <view class="form-label">联系电话</view>
+            <input class="form-input" type="number" placeholder="请输入您的联系方式" placeholder-class="ph-color" model:value="{{phone}}" />
+        </view>
+
+        <view class="form-group">
+            <view class="form-label">企业名称</view>
+            <input class="form-input" placeholder="请输入企业名称" placeholder-class="ph-color" model:value="{{company}}" />
+        </view>
+
+        <view class="form-group">
+            <view class="form-label">您的职位</view>
+            <input class="form-input" placeholder="请输入您的职位" placeholder-class="ph-color" model:value="{{job}}" />
+        </view>
+
+        <view class="form-group">
+            <view class="form-label">您期望与我们哪方面合作</view>
+            <view class="coop-grid">
+                <block wx:for="{{coopOptions}}" wx:key="value">
+                    <view class="coop-item {{item.selected ? 'active' : ''}}" bindtap="toggleCoop" data-index="{{index}}">
+                        <image src="{{item.icon}}" class="coop-icon"></image>
+                        <view class="coop-text-box">
+                            <view class="coop-title">{{item.title}}</view>
+                            <view class="coop-desc">{{item.desc}}</view>
+                        </view>
+                    </view>
+                </block>
+            </view>
+        </view>
+
+        <button class="submit-btn" bindtap="submitForm" disabled="{{isSubmitting}}">
+            {{isSubmitting ? '提交中...' : '提    交'}}
+        </button>
+        
+        <view style="height: 120rpx;"></view>
+    </scroll-view>
+
+    <view class="tab-bar">
+        <image src="/images/tab-bar-bg.png" class="tab-bar-bg"></image>
+        <view class="tab-item" bindtap="goToIndex">
+            <image src="/images/intro-unselected.png" class="tab-icon"></image>
+            <text class="tab-text">企业介绍</text>
+        </view>
+        <view class="tab-item active">
+            <image src="/images/contact-selected.png" class="tab-icon"></image>
+            <text class="tab-text">留下联系</text>
+        </view>
+    </view>
+</view>

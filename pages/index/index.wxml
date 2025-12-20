@@ -1,0 +1,85 @@
+<view class="container">
+  <image class="dynamic-bg" src="{{bgImage}}" mode="aspectFill"></image>
+
+  <image class="decoration-layer {{currentIndex === 2 ? 'hidden' : ''}}" src="/images/decoration-bg.png"
+    mode="widthFix"></image>
+
+  <view class="header-fixed">
+    <view class="grid-title-container">
+      <image class="title-bg" src="/images/fixed-header-bg.png" mode="scaleToFill"></image>
+      <text>浙建智造</text>
+    </view>
+  </view>
+
+  <view class="side-indicator">
+    <block wx:for="{{[0,1,2,3]}}" wx:key="*this">
+      <view class="dot {{currentIndex === index ? 'active' : ''}}"></view>
+    </block>
+  </view>
+
+  <swiper class="main-swiper" vertical="true" bindchange="onSwiperChange">
+    <swiper-item class="page-item">
+      <view class="content-wrapper">
+        <view class="logo-box">
+          <image src="/images/logo.png" mode="aspectFit" class="logo-img"></image>
+        </view>
+        <view class="card">
+          <view class="card-title">企业简介</view>
+          <scroll-view scroll-y class="card-body">
+            <text space="emsp"> 浙江建投智能建造工程有限公司（简称“浙建智造”）作为浙江省建设投资集团积极响应国家智能建造战略、落实省委省政府发展新质生产力部署而成立的专业化平台，浙建智造自诞生之日起就承载着引领产业变革的重任，得到了各级领导的亲切关怀与政府部门的鼎力支持。浙建智造是浙江省建设投资集团旗下省内首家聚焦建筑机器人研发与应用的专业化智能建造企业，于 2025 年 6 月 9 日正式成立，注册资本金 1 亿元，总部位于杭州西湖区浙建科创园。</text>
+          </scroll-view>
+        </view>
+      </view>
+    </swiper-item>
+
+    <swiper-item class="page-item">
+      <view class="content-wrapper">
+        <view class="card">
+          <view class="card-title">主营业务</view>
+          <scroll-view scroll-y class="card-body">
+            <view class="list-header">四大核心业务板块</view>
+            <view class="list-item">数字设计：BIM+无人机+机器人集成解决方案；</view>
+          </scroll-view>
+        </view>
+      </view>
+    </swiper-item>
+
+    <swiper-item class="page-item">
+      <view class="content-wrapper" style="justify-content: flex-end; padding-bottom: 200rpx;">
+        <view class="card">
+          <view class="card-title">案例介绍</view>
+          <view class="card-body">
+            <view class="list-header">白马湖实验项目</view>
+            <view class="list-item">进场设备：地面整平机器人</view>
+          </view>
+        </view>
+      </view>
+    </swiper-item>
+
+    <swiper-item class="page-item">
+      <view class="content-wrapper">
+        <view class="card-title card-title-contact">业务联系</view>
+        <view class="card-body center-text">
+          <image src="/images/manager-wechat-qrcode.png" class="qr-code"></image>
+          <view class="hint-text">保存图片或截图识别二维码</view>
+          <view class="contact-row">
+            <image src="/images/contact-profile.png" class="icon-small"></image>
+            <text class="manager-name">许经理</text>
+          </view>
+        </view>
+      </view>
+    </swiper-item>
+  </swiper>
+
+  <view class="tab-bar">
+    <image src="/images/tab-bar-bg.png" class="tab-bar-bg"></image>
+    <view class="tab-item active">
+      <image src="/images/intro-selected.png" class="tab-icon"></image>
+      <text class="tab-text">企业介绍</text>
+    </view>
+    <view class="tab-item" bindtap="goToContact">
+      <image src="/images/contact-unselected.png" class="tab-icon"></image>
+      <text class="tab-text">留下联系</text>
+    </view>
+  </view>
+</view>
