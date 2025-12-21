@@ -34,7 +34,7 @@
       <view class="page-item">
         <view class="card" style="background: rgb(0,0,0,0.25);">
           <view class="card-title">主营业务</view>
-          <scroll-view class="card-body">
+          <scroll-view scroll-y class="card-body">
             <view class="list-header">
               <image src="/images/list-header-bg.png"></image>
               <text>四大核心业务板块</text>
@@ -96,7 +96,7 @@
           <image class="title-arrow right" src="/images/focus-left.png" mode="aspectFit"></image>
         </view>
         <view class="card-body center-text">
-          <image src="/images/manager-wechat-qrcode.png" class="qr-code"></image>
+          <image src="/images/manager-wechat-qrcode.png" class="qr-code" show-menu-by-longpress="{{true}}"></image>
           <view class="hint-text">扫一扫或长按识别二维码</view>
           <view class="contact-row">
             <image src="/images/contact-profile.png" class="icon-small"></image>
