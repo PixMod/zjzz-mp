@@ -1,38 +1,181 @@
-/* 补充 Grid 布局 */
+/* pages/contact/contact.wxss */
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+.bg-layer {
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -2;
+}
+.decoration-layer {
+  z-index: -1;
+}
+.form-scroll-container {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  padding-top: 18rpx;
+}
+.form-wrapper {
+  padding: 0 144rpx;
+}
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30rpx;
+}
+.title-arrow {
+  width: 60rpx; height: 24rpx;
+  margin-right: 24rpx;
+}
+.title-arrow.right {
+  margin-right: 0; margin-left: 24rpx;
+  transform: scaleX(-1);
+}
+
+.page-header text {
+  font-size: 32rpx;
+  color: var(--text-gold);
+  font-weight: bold;
+  letter-spacing: 4rpx;
+}
+
+/* 4. 表单组通用样式 */
+.form-group {
+  margin-bottom: 30rpx;
+}
+
+.form-label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.label-icon {
+  width: 36rpx; height: 36rpx;
+  margin-right: 12rpx;
+}
+
+.form-label text {
+  font-size: 24rpx;
+  color: white;
+  font-weight: bold;
+}
+
+/* 输入框样式 */
+.form-input {
+  width: 100%;
+  height: 64rpx; /* 原 Web 版 28px -> 56rpx，适当调大方便点击 */
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(169, 206, 255, 0.9);
+  border-radius: 12rpx;
+  padding: 0 24rpx;
+  color: white;
+  font-size: 24rpx;
+  box-sizing: border-box;
+}
+
+.ph-color {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* 5. 合作意向 Grid 布局 (核心) */
 .coop-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 20rpx; margin: 12rpx 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 等分两列 */
+  gap: 20rpx;
+  margin-top: 12rpx;
 }
+
 .coop-item {
-  /* 背景图需改为网络图或Base64，本地图片不能作为background-image，除非是<image>标签模拟 */
-  background-color: rgba(0,0,0,0.3); 
-  border: 1px solid rgba(255,255,255,0.2);
-  padding: 18rpx 12rpx 30rpx 12rpx;
-  display: flex; flex-direction: row; align-items: center; justify-content: center;
-  gap: 12rpx;
+  position: relative; /* 为内部绝对定位的背景图做锚点 */
+  height: 140rpx;     /* 固定高度，保证整齐 */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 10rpx;
+  /* 边框实际由图片背景决定，这里可以不写，或者写透明边框占位 */
 }
+
+/* 选中项的特殊样式 (如果需要 CSS 辅助) */
 .coop-item.active {
-  background-color: rgba(17, 71, 158, 0.6);
-  border-color: #00a2ff;
+  /* 逻辑主要靠换背景图实现，这里可加一点阴影增强 */
+  box-shadow: 0 0 10rpx rgba(0, 162, 255, 0.5);
 }
+
+/* 背景图层：绝对定位填满 */
+.coop-bg {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+}
+
+/* 内容层：相对定位浮在背景上 */
+.coop-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  width: 100%;
+  justify-content: center; /* 内容整体居中 */
+}
+
+.coop-icon {
+  width: 48rpx; height: 48rpx;
+  flex-shrink: 0;
+}
+
 .coop-text-box {
-    display: flex; flex-direction: column; align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* 限制宽度防止文字溢出 */
+  max-width: 160rpx; 
 }
-.coop-title { font-size: 24rpx; color: white; font-weight: bold; }
-.coop-desc { font-size: 16rpx; color: rgba(255,255,255,0.6); }
 
-/* 输入框 placeholder 颜色 */
-.ph-color { color: rgba(255, 255, 255, 0.4); }
+.coop-title {
+  font-size: 24rpx;
+  color: white;
+  font-weight: bold;
+  letter-spacing: 2rpx;
+  white-space: nowrap;
+}
 
+.coop-desc {
+  font-size: 16rpx;
+  color: rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+  /* transform在行内样式里处理了 */
+}
+
+/* 6. 提交按钮 */
 .submit-btn {
-   width: 356rpx; height: 108rpx;
-   /* 同样，按钮背景图建议用 <image> 绝对定位实现，或者使用网络图片 */
-   background: transparent; 
-   color: white; 
-   display: flex; justify-content: center; align-items: center;
-   margin: 40rpx auto;
-   background-image: url('https://你的资源路径/submit-button-unpressed.png');
-   background-size: 100% 100%;
+  position: relative;
+  width: 356rpx; height: 108rpx;
+  margin: 60rpx auto 0 auto;
+  background: transparent; /* 去掉原生背景 */
+  padding: 0;
+  display: flex; align-items: center; justify-content: center;
+  border: none;
 }
-.submit-btn:active {
-   background-image: url('https://你的资源路径/submit-button-pressed.png');
+.submit-btn::after { border: none; } /* 去掉小程序按钮自带的细边框 */
+
+.btn-bg {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+}
+
+.btn-text {
+  position: relative; z-index: 1;
+  color: white;
+  font-size: 32rpx;
+  font-weight: bold;
+  letter-spacing: 8rpx;
 }

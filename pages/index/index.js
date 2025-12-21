@@ -22,6 +22,10 @@ Page({
   goToContact() {
     wx.reLaunch({
       url: '/pages/contact/contact',
+      fail: (err) => {
+        console.error("跳转失败，请检查路径:", err);
+        wx.showToast({ title: '跳转失败', icon: 'none' });
+      }
     })
   }
 })
