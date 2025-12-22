@@ -1,5 +1,5 @@
 <view class="container">
-    <image class="bg-layer" src="/images/bg1.png" mode="aspectFill"></image>
+    <image class="bg-layer" src="/images/bg.png" mode="aspectFill"></image>
     <image class="decoration-layer" src="/images/decoration-bg.png" mode="widthFix"></image>
 
     <view class="header-fixed {{isHeaderHidden ? 'hidden' : ''}}">
@@ -11,9 +11,9 @@
 
     <scroll-view scroll-y class="form-scroll-container" bindscroll="onScroll" enhanced show-scrollbar="{{false}}">
         <view class="page-header">
-            <image class="title-arrow" src="/images/focus-left.png" mode="aspectFit"></image>
-            <text>信息留言</text>
-            <image class="title-arrow right" src="/images/focus-left.png" mode="aspectFit"></image>
+          <image class="focus-arrow" src="/images/focus-left.png" mode="aspectFit"></image>
+          <text>信息留言</text>
+          <image class="focus-arrow right" src="/images/focus-left.png" mode="aspectFit"></image>
         </view>
         
         <view class="form-wrapper">

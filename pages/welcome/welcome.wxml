@@ -1,0 +1,29 @@
+<view class="container">
+  <swiper class="fullscreen-swiper" indicator-dots="{{false}}" bindchange="onSwiperChange"
+    bindtouchstart="touchStart" bindtouchend="touchEnd">
+    <block wx:for="{{imgs}}" wx:key="*this">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image" mode="aspectFill"></image>
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <view class="overlay-logo">
+    <image src="/images/logo.png" mode="heightFix"></image>
+  </view>
+
+  <view class="overlay-text">
+    <view class="text-line" style="margin-left: -144rpx;">锻造 浙建新质铁军</view>
+    <view class="text-line">树立 智能建造标杆</view>
+  </view>
+
+  <view class="custom-indicators">
+    <block wx:for="{{imgs}}" wx:key="index">
+      <view class="indicator-bar {{index === currentIndex ? 'active' : ''}}"></view>
+    </block>
+  </view>
+
+  <view class="skip-btn" bindtap="onSkip">
+    <text>{{currentIndex === imgs.length - 1 ? '进入' : '跳过'}}</text>
+  </view>
+  </view>

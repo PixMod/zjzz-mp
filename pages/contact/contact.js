@@ -38,11 +38,16 @@ Page({
 
   submitForm() {
     if (!this.data.name.trim()) {
-      wx.showToast({ title: '请输入姓名', icon: 'none' });
+      wx.showToast({ title: '请输入您的姓名', icon: 'none' });
       return;
     }
     if (!this.data.phone.trim()) {
-      wx.showToast({ title: '请输入电话', icon: 'none' });
+      wx.showToast({ title: '请输入联系电话', icon: 'none' });
+      return;
+    }
+    const hasSelectedCoop = this.data.coopOptions.some(item => item.selected);
+    if (!hasSelectedCoop) {
+      wx.showToast({ title: '请选择合作方向', icon: 'none' });
       return;
     }
 
@@ -56,8 +61,20 @@ Page({
     const selectedCoops = this.data.coopOptions
         .filter(item => item.selected)
         .map(item => item.title);
-
-    const content = `【浙建智造用户留言】\n姓名：${this.data.name}\n电话：${this.data.phone}\n公司：${this.data.company}\n职位：${this.data.job}\n意向：${selectedCoops.join(', ') || '无'}`;
+    const company = this.data.company.trim();
+    const job = this.data.job.trim();
+    const name = this.data.name.trim();
+    let identity = '';
+    if (company && job) {
+      identity = `${company} 的 ${job} ${name}`;
+    } else if (!company && job) {
+        identity = `${job} ${name}`;
+    } else if (company && !job) {
+        identity = `${company} 的 ${name}`;
+    } else {
+        identity = `${name}`;
+    }
+    const content = `【浙建智造用户留言】\n许经理你好，我是 ${identity}，想与贵司就“${selectedCoops.join(', ')}”方向开展合作，有空请联系我：${this.data.phone} 🤝`;
 
     wx.request({
       url: 'https://pixos.dpdns.org/api/submit', 

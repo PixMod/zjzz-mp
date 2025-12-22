@@ -1,11 +1,23 @@
-.dynamic-bg {
-  position: fixed; 
+.bg-container {
+  position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
-  background-position: center bottom;
+  z-index: 0;
+  background-color: #000;
+}
+.dynamic-bg {
+  position: absolute; 
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   z-index: 0;
-  transition: background-image 0.5s ease-in-out;
+  opacity: 0;
+  transition: opacity 1.0s ease-in-out;
+  will-change: opacity;
+}
+.dynamic-bg.show {
+  opacity: 1;
+  z-index: 1;
 }
 .main-swiper { height: 100vh; width: 100%; }
 .side-indicator {
@@ -60,7 +72,7 @@
   font-size: 33rpx;
   letter-spacing: 6rpx;
 }
-.card-title-contact {
+.card-title-focus {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,16 +81,6 @@
   color: var(--text-gold);
   letter-spacing: 6rpx;
   font-weight: bold;
-}
-.title-arrow {
-  width: 90rpx;
-  height: 36rpx;
-  margin-right: 36rpx;
-}
-.title-arrow.right {
-  margin-right: 0;
-  margin-left: 36rpx;
-  transform: scaleX(-1);
 }
 .card-body {
     flex: 1;
@@ -186,4 +188,133 @@
   font-size: 36rpx;
   color: var(--text-gold);
   font-weight: bold;
+}
+.qr-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 100;
+}
+.swipe-hint-box {
+  position: fixed;
+  left: 0; 
+  width: 100%;
+  bottom: calc(144rpx + env(safe-area-inset-bottom));
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.swipe-hint-box.show {
+  opacity: 1;
+  animation: floatUp 1.5s infinite ease-in-out;
+}
+.swipe-hint-box text {
+  font-size: 26rpx;
+  font-weight: 900;
+  color: #f6c45d;
+  letter-spacing: 4rpx;
+  text-shadow: 
+    2rpx 2rpx 0px #fff, 
+    -2rpx 2rpx 0px #fff, 
+    2rpx -2rpx 0px #fff, 
+    -2rpx -2rpx 0px #fff,
+    0px 0px 8rpx rgba(255, 255, 255, 0.8);
+}
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12rpx); }
+}
+
+.go-top-btn {
+  position: absolute;
+  right: 48rpx;
+  bottom: 360rpx; 
+  width: 120rpx;
+  height: 120rpx;
+  z-index: 200;
+  transition: transform 0.1s;
+}
+
+.go-top-btn:active {
+  transform: scale(0.9);
+}
+
+.go-top-btn image {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* --- 案例轮播样式 --- */
+.case-swiper {
+  width: 100%;
+  height: 80vh;
+}
+.dynamic-card {
+  width: 100%;
+  height: auto;       
+  max-height: 100%;   
+  flex: none;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(169, 206, 255, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  padding: 8px;
+  box-sizing: border-box;
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+.case-swiper .card-body {
+  height: auto;
+  min-height: 0;
+  max-height: 100%;
+  flex: 1;
+  padding-bottom: 0;
+  overflow-y: auto !important;
+  text-indent: 0 !important;
+}
+
+.case-indicators {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40rpx;
+  margin-top: 24rpx;
+  position: relative;
+  z-index: 10;
+}
+.case-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s;
+}
+.case-dot.active {
+  background: #ffffff;
+  transform: scale(1.2);
+  box-shadow: 0 0 10rpx rgba(255, 255, 255, 0.8);
+}
+.list-header2 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: 0rpx;
+  margin-bottom: 6rpx;
+}
+.list-header2 image {
+  width: 48rpx; height: 48rpx; flex-shrink: 0;
+}
+.list-header2 text {
+  position: absolute; left: 16rpx;
+  font-size: 30rpx; font-weight: bold; color: #fff;
+  white-space: nowrap;
 }

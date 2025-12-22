@@ -1,6 +1,9 @@
 <view class="container">
-  <image class="dynamic-bg" src="{{bgImage}}" mode="aspectFill"></image>
-  <image class="decoration-layer {{currentIndex === 2 ? 'hidden' : ''}}" src="/images/decoration-bg.png"
+  <view class="bg-container">
+    <image class="dynamic-bg {{activeBg === 'A' ? 'show' : ''}}" src="{{bgImageA}}" mode="aspectFill"></image>
+    <image class="dynamic-bg {{activeBg === 'B' ? 'show' : ''}}" src="{{bgImageB}}" mode="aspectFill"></image>
+  </view>
+  <image class="decoration-layer {{currentPageIndex === 2 ? 'hidden' : ''}}" src="/images/decoration-bg.png"
     mode="widthFix"></image>
   <view class="header-fixed">
     <view class="grid-title-container">
@@ -10,16 +13,17 @@
   </view>
   <view class="side-indicator">
     <block wx:for="{{[0,1,2,3]}}" wx:key="*this">
-      <view class="dot {{currentIndex === index ? 'active' : ''}}"></view>
+      <view class="dot {{currentPageIndex === index ? 'active' : ''}}"></view>
     </block>
   </view>
-  <swiper class="main-swiper" vertical="true" bindchange="onSwiperChange">
+  <swiper class="main-swiper" vertical="true" bindchange="onSwiperChange" bindtransition="onSwiperTransition"
+    bindanimationfinish="onSwiperAnimationFinish" current="{{currentPageIndex}}">
     <swiper-item class="page">
       <view class="page-item">
         <view class="logo-box">
           <image src="/images/logo.png" mode="heightFix" class="logo-img"></image>
         </view>
-        <view class="card">
+        <view class="card" style="background: rgb(0,0,0,0.1);">
           <view class="card-title">企业简介</view>
           <scroll-view class="card-body">
             <view style="word-break: break-all">
@@ -32,7 +36,7 @@
 
     <swiper-item class="page">
       <view class="page-item">
-        <view class="card" style="background: rgb(0,0,0,0.25);">
+        <view class="card" style="background: rgb(0,0,0,0.1);">
           <view class="card-title">主营业务</view>
           <scroll-view scroll-y class="card-body">
             <view class="list-header">
@@ -54,11 +58,11 @@
               <view class="li">智慧运维：基于数字孪生数字化运维服务；</view>
             </view>
 
-            <view class="list-header">
+            <view class="list-header" wx:if="{{false}}">
               <image src="/images/list-header-bg.png" mode="aspectFit"></image>
               <text>战略目标</text>
             </view>
-            <view class="ul">
+            <view class="ul" wx:if="{{false}}">
               <view class="li">以智能建造技术推动建筑业变革，打造“人机协同”新生态；</view>
               <view class="li">构建覆盖设计、生产、施工、运维的全周期智能建造体系；</view>
               <view class="li">打造全国建筑机器人作业领域头部企业；</view>
@@ -70,32 +74,49 @@
     </swiper-item>
 
     <swiper-item class="page">
-      <view class="page-item" style="justify-content: flex-end; padding-bottom: 480rpx;">
-        <view class="card" style="background: rgb(0,0,0,0.382);">
-          <view class="card-title">案例介绍</view>
-          <scroll-view class="card-body">
-            <view class="list-header">
-              <image src="/images/list-header-bg.png" mode="aspectFit"></image>
-              <text>白马湖实验项目</text>
-            </view>
-            <view class="ul">
-              <view class="li">进场设备：地面整平机器人</view>
-              <view class="li">应用场景：混凝土地面工程；混凝土整平</view>
-              <view class="li">机器人施工：地面整平机器人施工面积 70955.53M²</view>
-            </view>
-          </scroll-view>
+      <view class="page-item" style="justify-content: flex-end; padding-bottom: 420rpx;">
+        <swiper class="case-swiper" circular="true" autoplay="true" interval="3000" duration="500"
+          bindchange="onCaseChange">
+          <block wx:for="{{caseList}}" wx:key="id">
+            <swiper-item style="display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%;">
+              
+              <view class="dynamic-card">
+                <view class="card-title" style="margin-bottom: 0rpx; margin-top: 0rpx;">案例介绍</view>
+                <scroll-view scroll-y class="card-body">
+                  <view class="list-header2">
+                    <image src="/images/list-header-bg.png" mode="aspectFit"></image>
+                    <text>{{item.title}}</text>
+                  </view>
+                  <view class="ul">
+                    <block wx:for="{{item.items}}" wx:for-item="subItem" wx:key="*this">
+                      <view class="li">{{subItem}}</view>
+                    </block>
+                  </view>
+                </scroll-view>
+              </view>
+
+            </swiper-item>
+          </block>
+        </swiper>
+
+        <view class="case-indicators">
+          <block wx:for="{{caseList}}" wx:key="id">
+            <view class="case-dot {{currentCaseIndex === index ? 'active' : ''}}"></view>
+          </block>
         </view>
+
       </view>
     </swiper-item>
 
     <swiper-item class="page">
       <view class="page-item">
-        <view class="card-title card-title-contact">
-          <image class="title-arrow" src="/images/focus-left.png" mode="aspectFit"></image>
+        <view class="card-title card-title-focus">
+          <image class="focus-arrow" src="/images/focus-left.png" mode="aspectFit"></image>
           <text>业务联系</text>
-          <image class="title-arrow right" src="/images/focus-left.png" mode="aspectFit"></image>
+          <image class="focus-arrow right" src="/images/focus-left.png" mode="aspectFit"></image>
         </view>
         <view class="card-body center-text">
+          <image class="qr-overlay" src="/images/manager-wechat-qrcode.png" show-menu-by-longpress="{{true}}"></image>
           <image src="/images/manager-wechat-qrcode.png" class="qr-code" show-menu-by-longpress="{{true}}"></image>
           <view class="hint-text">扫一扫或长按识别二维码</view>
           <view class="contact-row">
@@ -103,9 +124,16 @@
             <text class="manager-name">许经理</text>
           </view>
         </view>
+        <view class="go-top-btn" bindtap="goTop" bindtouchstart="onGoTopStart" bindtouchend="onGoTopEnd">
+          <image src="{{isGoTopPressed ? '/images/gotop-pressed.png' : '/images/gotop-unpressed.png'}}"></image>
+        </view>
       </view>
     </swiper-item>
   </swiper>
+
+  <view class="swipe-hint-box {{currentPageIndex < 3 && !isSwiping ? 'show' : ''}}">
+    <text>滑动查看更多 ▲</text>
+  </view>
 
   <view class="tab-bar">
     <image src="/images/tab-bar-bg.png" class="tab-bar-bg"></image>
