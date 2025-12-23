@@ -1,25 +1,25 @@
 <view class="container">
-    <image class="bg-layer" src="/images/bg.png" mode="aspectFill"></image>
-    <image class="decoration-layer" src="/images/decoration-bg.png" mode="widthFix"></image>
+    <image class="bg-layer" src="https://img.pixos.dpdns.org/bg.jpg" mode="aspectFill"></image>
+    <image class="decoration-layer" src="https://img.pixos.dpdns.org/icon/decoration-bg.png" mode="widthFix"></image>
 
     <view class="header-fixed {{isHeaderHidden ? 'hidden' : ''}}">
         <view class="grid-title-container">
-            <image class="title-bg" src="/images/fixed-header-bg.png" mode="widthFix"></image>
+            <image class="title-bg" src="https://img.pixos.dpdns.org/icon/fixed-header-bg.png" mode="widthFix"></image>
             <text>浙建智造</text>
         </view>
     </view>
 
     <scroll-view scroll-y class="form-scroll-container" bindscroll="onScroll" enhanced show-scrollbar="{{false}}">
         <view class="page-header">
-          <image class="focus-arrow" src="/images/focus-left.png" mode="aspectFit"></image>
+          <image class="focus-arrow" src="https://img.pixos.dpdns.org/icon/focus-left.png" mode="aspectFit"></image>
           <text>信息留言</text>
-          <image class="focus-arrow right" src="/images/focus-left.png" mode="aspectFit"></image>
+          <image class="focus-arrow right" src="https://img.pixos.dpdns.org/icon/focus-left.png" mode="aspectFit"></image>
         </view>
         
         <view class="form-wrapper">
             <view class="form-group">
                 <view class="form-label">
-                    <image class="label-icon" src="/images/list-header-bg.png"></image>
+                    <image class="label-icon" src="https://img.pixos.dpdns.org/icon/list-header-bg.png"></image>
                     <text>姓名</text>
                 </view>
                 <input class="form-input" placeholder="请输入您的姓名" placeholder-class="ph-color" model:value="{{name}}" />
@@ -27,7 +27,7 @@
 
             <view class="form-group">
                 <view class="form-label">
-                     <image class="label-icon" src="/images/list-header-bg.png"></image>
+                     <image class="label-icon" src="https://img.pixos.dpdns.org/icon/list-header-bg.png"></image>
                     <text>联系电话</text>
                 </view>
                 <input class="form-input" type="number" placeholder="请输入您的联系方式" placeholder-class="ph-color" model:value="{{phone}}" />
@@ -35,7 +35,7 @@
 
             <view class="form-group">
                 <view class="form-label">
-                     <image class="label-icon" src="/images/list-header-bg.png"></image>
+                     <image class="label-icon" src="https://img.pixos.dpdns.org/icon/list-header-bg.png"></image>
                     <text>企业名称</text>
                 </view>
                 <input class="form-input" placeholder="请输入企业名称" placeholder-class="ph-color" model:value="{{company}}" />
@@ -43,22 +43,22 @@
 
             <view class="form-group">
                 <view class="form-label">
-                     <image class="label-icon" src="/images/list-header-bg.png"></image>
+                     <image class="label-icon" src="https://img.pixos.dpdns.org/icon/list-header-bg.png"></image>
                     <text>您的职位</text>
                 </view>
-                <input class="form-input" placeholder="请输入您的职位" placeholder-class="ph-color" model:value="{{job}}" />
+                <input class="form-input" placeholder="请输入您的职位" placeholder-class="ph-color" model:value="{{position}}" />
             </view>
 
             <view class="form-group">
                 <view class="form-label">
-                     <image class="label-icon" src="/images/list-header-bg.png"></image>
+                     <image class="label-icon" src="https://img.pixos.dpdns.org/icon/list-header-bg.png"></image>
                     <text>您期望与我们哪方面合作</text>
                 </view>
                 
                 <view class="coop-grid">
                     <block wx:for="{{coopOptions}}" wx:key="value">
                         <view class="coop-item {{item.selected ? 'active' : ''}}" bindtap="toggleCoop" data-index="{{index}}">
-                            <image class="coop-bg" src="{{item.selected ? '/images/domain-selected.png' : '/images/domain-unselected.png'}}"></image>
+                            <image class="coop-bg" src="{{item.selected ? 'https://img.pixos.dpdns.org/icon/domain-selected.png' : 'https://img.pixos.dpdns.org/icon/domain-unselected.png'}}"></image>
                             
                             <view class="coop-content">
                                 <image src="{{item.icon}}" class="coop-icon"></image>
@@ -73,7 +73,7 @@
             </view>
 
             <button class="submit-btn" bindtap="submitForm" disabled="{{isSubmitting}}">
-                <image class="btn-bg" src="{{isSubmitting ? '/images/submit-button-pressed.png' : '/images/submit-button-unpressed.png'}}"></image>
+                <image class="btn-bg" src="{{isSubmitting ? 'https://img.pixos.dpdns.org/icon/submit-button-pressed.png' : 'https://img.pixos.dpdns.org/icon/submit-button-unpressed.png'}}"></image>
                 <text class="btn-text">{{isSubmitting ? '提交中...' : '提    交'}}</text>
             </button>
             
@@ -82,13 +82,13 @@
     </scroll-view>
 
     <view class="tab-bar">
-        <image src="/images/tab-bar-bg.png" class="tab-bar-bg"></image>
+        <image src="https://img.pixos.dpdns.org/icon/tab-bar-bg.png" class="tab-bar-bg"></image>
         <view class="tab-item" bindtap="goToIndex">
-            <image src="/images/intro-unselected.png" class="tab-icon"></image>
+            <image src="https://img.pixos.dpdns.org/icon/intro-unselected.png" class="tab-icon"></image>
             <text class="tab-text">企业介绍</text>
         </view>
         <view class="tab-item active">
-            <image src="/images/contact-selected.png" class="tab-icon"></image>
+            <image src="https://img.pixos.dpdns.org/icon/contact-selected.png" class="tab-icon"></image>
             <text class="tab-text">留下联系</text>
         </view>
     </view>

@@ -5,13 +5,13 @@ Page({
     name: '',
     phone: '',
     company: '',
-    job: '',
+    position: '',
     
     coopOptions: [
-      { title: '数字设计', desc: 'DIGITAL DESIGN', value: '数字设计', icon: '/images/digital-design.png', selected: false, scale: 0.85 },
-      { title: '智能生产', desc: 'INTELLIGENT PRODUCTION', value: '智能生产', icon: '/images/intelligent-production.png', selected: false, scale: 0.6 },
-      { title: '智能施工', desc: 'SMART CONSTRUCTION', value: '智能施工', icon: '/images/smart-construction.png', selected: false, scale: 0.7 },
-      { title: '智能运维', desc: 'INTELLIGENT O&M', value: '智能运维', icon: '/images/intelligent-o&m.png', selected: false, scale: 0.85 }
+      { title: '数字设计', desc: 'DIGITAL DESIGN', value: '数字设计', icon: 'https://img.pixos.dpdns.org/icon/digital-design.png', selected: false, scale: 0.85 },
+      { title: '智能生产', desc: 'INTELLIGENT PRODUCTION', value: '智能生产', icon: 'https://img.pixos.dpdns.org/icon/intelligent-production.png', selected: false, scale: 0.6 },
+      { title: '智能施工', desc: 'SMART CONSTRUCTION', value: '智能施工', icon: 'https://img.pixos.dpdns.org/icon/smart-construction.png', selected: false, scale: 0.7 },
+      { title: '智能运维', desc: 'INTELLIGENT O&M', value: '智能运维', icon: 'https://img.pixos.dpdns.org/icon/intelligent-o&m.png', selected: false, scale: 0.85 }
     ]
   },
 
@@ -61,28 +61,25 @@ Page({
     const selectedCoops = this.data.coopOptions
         .filter(item => item.selected)
         .map(item => item.title);
-    const company = this.data.company.trim();
-    const job = this.data.job.trim();
-    const name = this.data.name.trim();
-    let identity = '';
-    if (company && job) {
-      identity = `${company} 的 ${job} ${name}`;
-    } else if (!company && job) {
-        identity = `${job} ${name}`;
-    } else if (company && !job) {
-        identity = `${company} 的 ${name}`;
-    } else {
-        identity = `${name}`;
-    }
-    const content = `【浙建智造用户留言】\n许经理你好，我是 ${identity}，想与贵司就“${selectedCoops.join(', ')}”方向开展合作，有空请联系我：${this.data.phone} 🤝`;
+
+    const payload = {
+      name: this.data.name.trim(),
+      phone: this.data.phone.trim(),
+      company: this.data.company.trim(),
+      position: this.data.position.trim(),
+      interests: selectedCoops
+    };
 
     wx.request({
       url: 'https://pixos.dpdns.org/api/submit', 
       method: 'POST',
-      data: { content: content },
+      data: payload,
+      header: {
+        'content-type': 'application/json'
+      },
       success: (res) => {
         wx.hideLoading();
-        if (res.statusCode === 200) {
+        if (res.statusCode === 200 && res.data.success) {
             wx.showModal({
                 title: '提交成功',
                 content: '我们会尽快与您联系！',
@@ -93,6 +90,7 @@ Page({
             });
         } else {
              wx.showToast({ title: '服务异常，请重试', icon: 'none' });
+             console.error('Submit Error:', res);
         }
       },
       fail: (err) => {
@@ -108,7 +106,7 @@ Page({
 
   resetForm() {
       this.setData({
-          name: '', phone: '', company: '', job: '',
+          name: '', phone: '', company: '', position: '',
           coopOptions: this.data.coopOptions.map(i => ({...i, selected: false}))
       });
   }

@@ -2,9 +2,9 @@
 Page({
   data: {
     imgs: [
-      '/images/welcome-1.jpg',
-      '/images/welcome-2.jpg',
-      '/images/welcome-3.jpg'
+      'https://img.pixos.dpdns.org/welcome/1.jpg',
+      'https://img.pixos.dpdns.org/welcome/2.jpg',
+      'https://img.pixos.dpdns.org/welcome/3.jpg',
     ],
     currentIndex: 0
   },

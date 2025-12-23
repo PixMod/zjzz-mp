@@ -4,14 +4,14 @@ Page({
     isSwiping: false,
     currentCaseIndex: 0,
     isGoTopPressed: false,
-    bgImageA: '/images/bg.png',
+    bgImageA: 'https://img.pixos.dpdns.org/bg.jpg',
     bgImageB: '',
     activeBg: 'A',
     caseList: [
       {
         id: 0,
         title: '白马湖实验室项目',
-        bg: '/images/casestudy-1.jpg',
+        bg: 'https://img.pixos.dpdns.org/casestudy/1.jpg',
         items: [
           '进场设备：地面整平机器人',
           '应用场景：混凝土地面工程；混凝土整平',
@@ -21,7 +21,7 @@ Page({
       {
         id: 1,
         title: '浙江中医药大学',
-        bg: '/images/casestudy-2.jpg', 
+        bg: 'https://img.pixos.dpdns.org/casestudy/2.jpg', 
         items: [
           '进场设备：地坪研磨机器人',
           '应用场景：地面混凝土工程；金刚砂地坪研磨',
@@ -31,7 +31,7 @@ Page({
       {
         id: 2,
         title: '浙能集团综合能源生产调度研发中心',
-        bg: '/images/casestudy-3.jpg',
+        bg: 'https://img.pixos.dpdns.org/casestudy/3.jpg',
         items: [
           '进进场设备：地坪涂覆机器人、地坪研磨机器人',
           '应用场景：混凝土地面工程；地坪漆通刷及破损地坪研磨',
@@ -41,7 +41,7 @@ Page({
       {
         id: 3,
         title: '中国建设银行浙江省分行档案数据中心',
-        bg: '/images/casestudy-4.jpg',
+        bg: 'https://img.pixos.dpdns.org/casestudy/4.jpg',
         items: [
           '进场设备：抹灰机器人、室内喷涂机器人',
           '应用场景：墙面工程；内墙粉刷、内墙及天花板腻子喷涂',
@@ -74,7 +74,7 @@ Page({
   },
 
   updateBackground(pageIndex, caseIndex) {
-    let targetBg = '/images/bg.png';
+    let targetBg = 'https://img.pixos.dpdns.org/bg.jpg';
     if (pageIndex === 2) {
       targetBg = this.data.caseList[caseIndex].bg;
     } 

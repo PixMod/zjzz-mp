@@ -3,11 +3,11 @@
     <image class="dynamic-bg {{activeBg === 'A' ? 'show' : ''}}" src="{{bgImageA}}" mode="aspectFill"></image>
     <image class="dynamic-bg {{activeBg === 'B' ? 'show' : ''}}" src="{{bgImageB}}" mode="aspectFill"></image>
   </view>
-  <image class="decoration-layer {{currentPageIndex === 2 ? 'hidden' : ''}}" src="/images/decoration-bg.png"
+  <image class="decoration-layer {{currentPageIndex === 2 ? 'hidden' : ''}}" src="https://img.pixos.dpdns.org/icon/decoration-bg.png"
     mode="widthFix"></image>
   <view class="header-fixed">
     <view class="grid-title-container">
-      <image class="title-bg" src="/images/fixed-header-bg.png" mode="widthFix"></image>
+      <image class="title-bg" src="https://img.pixos.dpdns.org/icon/fixed-header-bg.png" mode="widthFix"></image>
       <text>浙建智造</text>
     </view>
   </view>
@@ -21,7 +21,7 @@
     <swiper-item class="page">
       <view class="page-item">
         <view class="logo-box">
-          <image src="/images/logo.png" mode="heightFix" class="logo-img"></image>
+          <image src="https://img.pixos.dpdns.org/icon/logo.png" mode="heightFix" class="logo-img"></image>
         </view>
         <view class="card" style="background: rgb(0,0,0,0.1);">
           <view class="card-title">企业简介</view>
@@ -40,7 +40,7 @@
           <view class="card-title">主营业务</view>
           <scroll-view scroll-y class="card-body">
             <view class="list-header">
-              <image src="/images/list-header-bg.png"></image>
+              <image src="https://img.pixos.dpdns.org/icon/list-header-bg.png"></image>
               <text>四大核心业务板块</text>
             </view>
             <view class="ul">
@@ -59,7 +59,7 @@
             </view>
 
             <view class="list-header" wx:if="{{false}}">
-              <image src="/images/list-header-bg.png" mode="aspectFit"></image>
+              <image src="https://img.pixos.dpdns.org/icon/list-header-bg.png" mode="aspectFit"></image>
               <text>战略目标</text>
             </view>
             <view class="ul" wx:if="{{false}}">
@@ -75,7 +75,7 @@
 
     <swiper-item class="page">
       <view class="page-item" style="justify-content: flex-end; padding-bottom: 420rpx;">
-        <swiper class="case-swiper" circular="true" autoplay="true" interval="3000" duration="500"
+        <swiper class="case-swiper" circular="true" autoplay="true" interval="7000" duration="500"
           bindchange="onCaseChange">
           <block wx:for="{{caseList}}" wx:key="id">
             <swiper-item style="display: flex; flex-direction: column; justify-content: flex-end; align-items: center; height: 100%;">
@@ -84,7 +84,7 @@
                 <view class="card-title" style="margin-bottom: 0rpx; margin-top: 0rpx;">案例介绍</view>
                 <scroll-view scroll-y class="card-body">
                   <view class="list-header2">
-                    <image src="/images/list-header-bg.png" mode="aspectFit"></image>
+                    <image src="https://img.pixos.dpdns.org/icon/list-header-bg.png" mode="aspectFit"></image>
                     <text>{{item.title}}</text>
                   </view>
                   <view class="ul">
@@ -111,21 +111,21 @@
     <swiper-item class="page">
       <view class="page-item">
         <view class="card-title card-title-focus">
-          <image class="focus-arrow" src="/images/focus-left.png" mode="aspectFit"></image>
+          <image class="focus-arrow" src="https://img.pixos.dpdns.org/icon/focus-left.png" mode="aspectFit"></image>
           <text>业务联系</text>
-          <image class="focus-arrow right" src="/images/focus-left.png" mode="aspectFit"></image>
+          <image class="focus-arrow right" src="https://img.pixos.dpdns.org/icon/focus-left.png" mode="aspectFit"></image>
         </view>
         <view class="card-body center-text">
-          <image class="qr-overlay" src="/images/manager-wechat-qrcode.png" show-menu-by-longpress="{{true}}"></image>
-          <image src="/images/manager-wechat-qrcode.png" class="qr-code" show-menu-by-longpress="{{true}}"></image>
+          <image class="qr-overlay" src="https://img.pixos.dpdns.org/icon/manager-wechat-qrcode.png" show-menu-by-longpress="{{true}}"></image>
+          <image src="https://img.pixos.dpdns.org/icon/manager-wechat-qrcode.png" class="qr-code" show-menu-by-longpress="{{true}}"></image>
           <view class="hint-text">扫一扫或长按识别二维码</view>
           <view class="contact-row">
-            <image src="/images/contact-profile.png" class="icon-small"></image>
+            <image src="https://img.pixos.dpdns.org/icon/contact-profile.png" class="icon-small"></image>
             <text class="manager-name">许经理</text>
           </view>
         </view>
         <view class="go-top-btn" bindtap="goTop" bindtouchstart="onGoTopStart" bindtouchend="onGoTopEnd">
-          <image src="{{isGoTopPressed ? '/images/gotop-pressed.png' : '/images/gotop-unpressed.png'}}"></image>
+          <image src="{{isGoTopPressed ? 'https://img.pixos.dpdns.org/icon/gotop-pressed.png' : 'https://img.pixos.dpdns.org/icon/gotop-unpressed.png'}}"></image>
         </view>
       </view>
     </swiper-item>
@@ -136,13 +136,13 @@
   </view>
 
   <view class="tab-bar">
-    <image src="/images/tab-bar-bg.png" class="tab-bar-bg"></image>
+    <image src="https://img.pixos.dpdns.org/icon/tab-bar-bg.png" class="tab-bar-bg"></image>
     <view class="tab-item active">
-      <image src="/images/intro-selected.png" class="tab-icon"></image>
+      <image src="https://img.pixos.dpdns.org/icon/intro-selected.png" class="tab-icon"></image>
       <text class="tab-text">企业介绍</text>
     </view>
     <view class="tab-item" bindtap="goToContact">
-      <image src="/images/contact-unselected.png" class="tab-icon"></image>
+      <image src="https://img.pixos.dpdns.org/icon/contact-unselected.png" class="tab-icon"></image>
       <text class="tab-text">留下联系</text>
     </view>
   </view>
