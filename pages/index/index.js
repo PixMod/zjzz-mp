@@ -1,54 +1,53 @@
+const config = require('../../utils/config.js');
+const app = getApp();
 Page({
   data: {
+    icoPath: config.ICON_PATH,
+    imgPath: config.IMAGE_PATH,
+    cfgPath: config.CONFIG_PATH,
+
     currentPageIndex: 0,
     isSwiping: false,
     currentCaseIndex: 0,
     isGoTopPressed: false,
-    bgImageA: 'https://img.pixos.dpdns.org/bg.jpg',
+    bgImageA: `${config.IMAGE_PATH}/bg.jpg`,
     bgImageB: '',
+    bgModeA: 'aspectFill', 
+    bgModeB: 'aspectFill',
+    
+    isCaseA: false,
+    isCaseB: false,
+    
     activeBg: 'A',
-    caseList: [
-      {
-        id: 0,
-        title: '白马湖实验室项目',
-        bg: 'https://img.pixos.dpdns.org/casestudy/1.jpg',
-        items: [
-          '进场设备：地面整平机器人',
-          '应用场景：混凝土地面工程；混凝土整平',
-          '机器人施工：地面整平机器人施工面积 70955.53m²'
-        ]
-      },
-      {
-        id: 1,
-        title: '浙江中医药大学',
-        bg: 'https://img.pixos.dpdns.org/casestudy/2.jpg', 
-        items: [
-          '进场设备：地坪研磨机器人',
-          '应用场景：地面混凝土工程；金刚砂地坪研磨',
-          '机器人施工：地坪研磨机器人施工面积 24431.15m²'
-        ]
-      },
-      {
-        id: 2,
-        title: '浙能集团综合能源生产调度研发中心',
-        bg: 'https://img.pixos.dpdns.org/casestudy/3.jpg',
-        items: [
-          '进进场设备：地坪涂覆机器人、地坪研磨机器人',
-          '应用场景：混凝土地面工程；地坪漆通刷及破损地坪研磨',
-          '机器人施工：地坪涂敷机器人施工面积 4490.00m²'
-        ]
-      },
-      {
-        id: 3,
-        title: '中国建设银行浙江省分行档案数据中心',
-        bg: 'https://img.pixos.dpdns.org/casestudy/4.jpg',
-        items: [
-          '进场设备：抹灰机器人、室内喷涂机器人',
-          '应用场景：墙面工程；内墙粉刷、内墙及天花板腻子喷涂',
-          '机器人施工：粉刷施工面积 355640.7²'
-        ]
-      }
-    ]
+    
+    intro: {},
+    business: {},
+    caseList: [],
+    contactInfo: {},
+
+    isPreviewing: false,
+  },
+  previewTimer: null,
+
+  onLoad(options) {
+    this.loadDataFromGlobal();
+    app.configReadyCallback = () => {
+      this.loadDataFromGlobal();
+    };
+  },
+
+  loadDataFromGlobal() {
+    const g = app.globalData;
+    if (g.intro || g.business || g.caseList || g.contact) {
+      this.setData({
+        intro: g.intro || {},
+        business: g.business || {},
+        caseList: g.caseList || [],
+        contactInfo: g.contact || {}
+      });
+      return true;
+    }
+    return false;
   },
 
   onSwiperChange(e) {
@@ -58,6 +57,12 @@ Page({
       this.setData({
         currentPageIndex: current
       });
+
+      if (current === 2) {
+        this.restartPreviewTimer();
+      } else {
+        this.clearPreviewTimer();
+      }
     }
   },
 
@@ -69,25 +74,64 @@ Page({
       });
       if (this.data.currentPageIndex === 2) {
         this.updateBackground(2, caseIndex);
+        this.restartPreviewTimer();
       }
     }
   },
 
+  restartPreviewTimer() {
+    this.clearPreviewTimer();
+    this.setData({ isPreviewing: false });
+    this.previewTimer = setTimeout(() => {
+      this.setData({ isPreviewing: true });
+    }, 6000);
+  },
+  clearPreviewTimer() {
+    if (this.previewTimer) {
+      clearTimeout(this.previewTimer);
+      this.previewTimer = null;
+    }
+    this.setData({ isPreviewing: false });
+  },
+
   updateBackground(pageIndex, caseIndex) {
-    let targetBg = 'https://img.pixos.dpdns.org/bg.jpg';
-    if (pageIndex === 2) {
-      targetBg = this.data.caseList[caseIndex].bg;
+    let defaultBg = `${config.IMAGE_PATH}/bg.jpg`;
+    let targetBg = defaultBg;
+    let targetMode = 'aspectFill';
+    
+    const isCasePage = (pageIndex === 2);
+
+    if (isCasePage) {
+      if (this.data.caseList && this.data.caseList[caseIndex]) {
+        const item = this.data.caseList[caseIndex];
+        let imgPath = `${config.IMAGE_PATH}/casestudy/${item.title}/overview.jpg`; 
+        if (!imgPath) {
+          if (item.sitePhotos && item.sitePhotos.length > 0) {
+            imgPath = `${config.IMAGE_PATH}/casestudy/${item.sitePhotos[0]}`;
+          } else {
+            imgPath = defaultBg;
+          }
+        }
+        targetBg = imgPath;
+        targetMode = 'aspectFit';
+      }
+      console.info(`targetBg = ${targetBg}`);
     } 
-    const currentSrc = this.data.activeBg === 'A' ? this.data.bgImageA : this.data.bgImageB;
+    const isActiveA = this.data.activeBg === 'A';
+    const currentSrc = isActiveA ? this.data.bgImageA : this.data.bgImageB;
     if (currentSrc === targetBg) return;
-    if (this.data.activeBg === 'A') {
+    if (isActiveA) {
       this.setData({
         bgImageB: targetBg,
+        bgModeB: targetMode,
+        isCaseB: isCasePage,
         activeBg: 'B'
       });
     } else {
       this.setData({
         bgImageA: targetBg,
+        bgModeA: targetMode,
+        isCaseA: isCasePage,
         activeBg: 'A'
       });
     }
@@ -116,11 +160,15 @@ Page({
   },
   goToContact() {
     wx.reLaunch({
-      url: '/pages/contact/contact',
-      fail: (err) => {
-        console.error("跳转失败，请检查路径:", err);
-        wx.showToast({ title: '跳转失败', icon: 'none' });
-      }
+      url: '/pages/contact/contact'
     })
+  },
+  goToSitePhotos() {
+    if (this.data.caseList && this.data.caseList.length > 0) {
+        const currentCaseId = this.data.caseList[this.data.currentCaseIndex].id;
+        wx.navigateTo({
+          url: `/pages/sitephotos/sitephotos?id=${currentCaseId}`
+        });
+    }
   }
 })

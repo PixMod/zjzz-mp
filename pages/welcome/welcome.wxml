@@ -8,15 +8,6 @@
     </block>
   </swiper>
 
-  <view class="overlay-logo" wx:if="{{false}}">
-    <image src="https://img.pixos.dpdns.org/icon/logo.png" mode="heightFix"></image>
-  </view>
-
-  <view class="overlay-text" wx:if="{{false}}">
-    <view class="text-line" style="margin-left: -144rpx;">锻造 浙建新质铁军</view>
-    <view class="text-line">树立 智能建造标杆</view>
-  </view>
-
   <view class="custom-indicators">
     <block wx:for="{{imgs}}" wx:key="index">
       <view class="indicator-bar {{index === currentIndex ? 'active' : ''}}"></view>

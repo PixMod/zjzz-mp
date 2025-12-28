@@ -1,13 +1,19 @@
 <view class="container">
   <view class="bg-container">
-    <image class="dynamic-bg {{activeBg === 'A' ? 'show' : ''}}" src="{{bgImageA}}" mode="aspectFill"></image>
-    <image class="dynamic-bg {{activeBg === 'B' ? 'show' : ''}}" src="{{bgImageB}}" mode="aspectFill"></image>
+    <view class="bg-group {{activeBg === 'A' ? 'show' : ''}} {{isPreviewing ? 'preview-mode' : ''}}">
+      <image class="bg-layer blur" src="{{bgImageA}}" mode="aspectFill"></image>
+      <image class="bg-layer origin {{isCaseA ? 'lift-up' : ''}}" src="{{bgImageA}}" mode="{{bgModeA}}"></image>
+    </view>
+    <view class="bg-group {{activeBg === 'B' ? 'show' : ''}} {{isPreviewing ? 'preview-mode' : ''}}">
+      <image class="bg-layer blur" src="{{bgImageB}}" mode="aspectFill"></image>
+      <image class="bg-layer origin {{isCaseB ? 'lift-up' : ''}}" src="{{bgImageB}}" mode="{{bgModeB}}"></image>
+    </view>
   </view>
-  <image class="decoration-layer {{currentPageIndex === 2 ? 'hidden' : ''}}" src="https://img.pixos.dpdns.org/icon/decoration-bg.png"
+  <image class="decoration-layer {{currentPageIndex === 2 ? 'hidden' : ''}}" src="{{icoPath}}/decoration-bg.png"
     mode="widthFix"></image>
   <view class="header-fixed">
     <view class="grid-title-container">
-      <image class="title-bg" src="https://img.pixos.dpdns.org/icon/fixed-header-bg.png" mode="widthFix"></image>
+      <image class="title-bg" src="{{icoPath}}/fixed-header-bg.png" mode="widthFix"></image>
       <text>浙建智造</text>
     </view>
   </view>
@@ -21,14 +27,12 @@
     <swiper-item class="page">
       <view class="page-item">
         <view class="logo-box">
-          <image src="https://img.pixos.dpdns.org/icon/logo.png" mode="heightFix" class="logo-img"></image>
+          <image src="{{icoPath}}/logo.png" mode="heightFix" class="logo-img"></image>
         </view>
         <view class="card" style="background: rgb(0,0,0,0.1);">
-          <view class="card-title">企业简介</view>
+          <view class="card-title">{{intro.title}}</view>
           <scroll-view class="card-body">
-            <view style="word-break: break-all">
-              浙江建投智能建造工程有限公司（简称“浙建智造”）作为浙江省建设投资集团积极响应国家智能建造战略、落实省委省政府发展新质生产力部署而成立的专业化平台，浙建智造自诞生之日起就承载着引领产业变革的重任，得到了各级领导的亲切关怀与政府部门的鼎力支持。浙建智造是浙江省建设投资集团旗下省内首家聚焦建筑机器人研发与应用的专业化智能建造企业，于
-              2025 年 6 月 9 日正式成立，注册资本金 1 亿元，总部位于杭州西湖区浙建科创园。</view>
+            <view style="word-break: break-all">{{intro.content}}</view>
           </scroll-view>
         </view>
       </view>
@@ -37,36 +41,23 @@
     <swiper-item class="page">
       <view class="page-item">
         <view class="card" style="background: rgb(0,0,0,0.1);">
-          <view class="card-title">主营业务</view>
+          <view class="card-title">{{business.title}}</view>
           <scroll-view scroll-y class="card-body">
             <view class="list-header">
-              <image src="https://img.pixos.dpdns.org/icon/list-header-bg.png"></image>
-              <text>四大核心业务板块</text>
+              <image src="{{icoPath}}/list-header-bg.png"></image>
+              <text>{{business.header}}</text>
             </view>
             <view class="ul">
-              <view class="li">数字设计：BIM+无人机+机器人集成解决方案；</view>
-              <view class="li">智能生产：集中化钢筋智能加工、适配机器人施工的腻子、内外墙涂料等专用材料研发生产；</view>
-              <view class="li">智能施工：智能装备施工；</view>
-
-              <view class="ul sub-ul">
-                <view class="li sub-li">专业分包：墙面 / 地面混凝土工程；</view>
-                <view class="li sub-li">大劳务模式：机器人班组 + 传统工人协同；</view>
-                <view class="li sub-li">设备维护、操作人员培训、认证体系；</view>
-                <view class="li sub-li">机器人租赁和技术支持维保服务；</view>
-              </view>
-
-              <view class="li">智慧运维：基于数字孪生数字化运维服务；</view>
-            </view>
-
-            <view class="list-header" wx:if="{{false}}">
-              <image src="https://img.pixos.dpdns.org/icon/list-header-bg.png" mode="aspectFit"></image>
-              <text>战略目标</text>
-            </view>
-            <view class="ul" wx:if="{{false}}">
-              <view class="li">以智能建造技术推动建筑业变革，打造“人机协同”新生态；</view>
-              <view class="li">构建覆盖设计、生产、施工、运维的全周期智能建造体系；</view>
-              <view class="li">打造全国建筑机器人作业领域头部企业；</view>
-              <view class="li">打造 10 个国家级智能建造示范项目；承接机器人作业面 500 万M²；</view>
+              <block wx:for="{{business.segments}}" wx:key="name">
+                <view class="li">
+                  {{item.name}}：{{item.description}}
+                </view>
+                <view class="ul sub-ul" wx:if="{{item.sub && item.sub.length > 0}}">
+                  <block wx:for="{{item.sub}}" wx:for-item="subItem" wx:key="*this">
+                     <view class="li sub-li">{{subItem}}</view>
+                  </block>
+                </view>
+              </block>
             </view>
           </scroll-view>
         </view>
@@ -84,13 +75,17 @@
                 <view class="card-title" style="margin-bottom: 0rpx; margin-top: 0rpx;">案例介绍</view>
                 <scroll-view scroll-y class="card-body">
                   <view class="list-header2">
-                    <image src="https://img.pixos.dpdns.org/icon/list-header-bg.png" mode="aspectFit"></image>
+                    <image src="{{icoPath}}/list-header-bg.png" mode="aspectFit"></image>
                     <text>{{item.title}}</text>
                   </view>
                   <view class="ul">
                     <block wx:for="{{item.items}}" wx:for-item="subItem" wx:key="*this">
                       <view class="li">{{subItem}}</view>
                     </block>
+                  </view>
+                  <view class="view-photos-btn" bindtap="goToSitePhotos">
+                    <text>查看施工图片</text>
+                    <text class="arrow">⋙</text>
                   </view>
                 </scroll-view>
               </view>
@@ -111,21 +106,21 @@
     <swiper-item class="page">
       <view class="page-item">
         <view class="card-title card-title-focus">
-          <image class="focus-arrow" src="https://img.pixos.dpdns.org/icon/focus-left.png" mode="aspectFit"></image>
-          <text>业务联系</text>
-          <image class="focus-arrow right" src="https://img.pixos.dpdns.org/icon/focus-left.png" mode="aspectFit"></image>
+          <image class="focus-arrow" src="{{icoPath}}/focus-left.png" mode="aspectFit"></image>
+          <text>{{contactInfo.title}}</text>
+          <image class="focus-arrow right" src="{{icoPath}}/focus-left.png" mode="aspectFit"></image>
         </view>
         <view class="card-body center-text">
-          <image class="qr-overlay" src="https://img.pixos.dpdns.org/icon/manager-wechat-qrcode.png" show-menu-by-longpress="{{true}}"></image>
-          <image src="https://img.pixos.dpdns.org/icon/manager-wechat-qrcode.png" class="qr-code" show-menu-by-longpress="{{true}}"></image>
-          <view class="hint-text">扫一扫或长按识别二维码</view>
+          <image class="qr-overlay" src="{{icoPath}}/{{contactInfo.qrcode}}" show-menu-by-longpress="{{true}}"></image>
+          <image src="{{icoPath}}/{{contactInfo.qrcode}}" class="qr-code" show-menu-by-longpress="{{true}}"></image>
+          <view class="hint-text">{{contactInfo.prompt}}</view>
           <view class="contact-row">
-            <image src="https://img.pixos.dpdns.org/icon/contact-profile.png" class="icon-small"></image>
-            <text class="manager-name">许经理</text>
+            <image src="{{icoPath}}/contact-profile.png" class="icon-small"></image>
+            <text class="manager-name">{{contactInfo.name}}</text>
           </view>
         </view>
         <view class="go-top-btn" bindtap="goTop" bindtouchstart="onGoTopStart" bindtouchend="onGoTopEnd">
-          <image src="{{isGoTopPressed ? 'https://img.pixos.dpdns.org/icon/gotop-pressed.png' : 'https://img.pixos.dpdns.org/icon/gotop-unpressed.png'}}"></image>
+          <image src="{{isGoTopPressed ? icoPath + '/gotop-pressed.png' : icoPath + '/gotop-unpressed.png'}}"></image>
         </view>
       </view>
     </swiper-item>
@@ -136,13 +131,13 @@
   </view>
 
   <view class="tab-bar">
-    <image src="https://img.pixos.dpdns.org/icon/tab-bar-bg.png" class="tab-bar-bg"></image>
+    <image src="{{icoPath}}/tab-bar-bg.png" class="tab-bar-bg"></image>
     <view class="tab-item active">
-      <image src="https://img.pixos.dpdns.org/icon/intro-selected.png" class="tab-icon"></image>
+      <image src="{{icoPath}}/intro-selected.png" class="tab-icon"></image>
       <text class="tab-text">企业介绍</text>
     </view>
     <view class="tab-item" bindtap="goToContact">
-      <image src="https://img.pixos.dpdns.org/icon/contact-unselected.png" class="tab-icon"></image>
+      <image src="{{icoPath}}/contact-unselected.png" class="tab-icon"></image>
       <text class="tab-text">留下联系</text>
     </view>
   </view>

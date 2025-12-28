@@ -1,5 +1,11 @@
+const config = require('../../utils/config.js');
+const app = getApp();
+
 Page({
   data: {
+    icoPath: config.ICON_PATH,
+    imgPath: config.IMAGE_PATH,
+
     isHeaderHidden: false,
     isSubmitting: false,
     name: '',
@@ -7,12 +13,32 @@ Page({
     company: '',
     position: '',
     
-    coopOptions: [
-      { title: '数字设计', desc: 'DIGITAL DESIGN', value: '数字设计', icon: 'https://img.pixos.dpdns.org/icon/digital-design.png', selected: false, scale: 0.85 },
-      { title: '智能生产', desc: 'INTELLIGENT PRODUCTION', value: '智能生产', icon: 'https://img.pixos.dpdns.org/icon/intelligent-production.png', selected: false, scale: 0.6 },
-      { title: '智能施工', desc: 'SMART CONSTRUCTION', value: '智能施工', icon: 'https://img.pixos.dpdns.org/icon/smart-construction.png', selected: false, scale: 0.7 },
-      { title: '智能运维', desc: 'INTELLIGENT O&M', value: '智能运维', icon: 'https://img.pixos.dpdns.org/icon/intelligent-o&m.png', selected: false, scale: 0.85 }
-    ]
+    coopOptions: []
+  },
+
+  onLoad() {
+    this.initCoopOptions();
+  },
+
+  initCoopOptions() {
+    const business = app.globalData.business;
+    if (business && business.segments) {
+      const options = business.segments.map(item => {
+        return {
+          title: item.name,
+          desc: item.en,
+          value: item.name,
+          icon: `${config.ICON_PATH}/${item.icon}`,
+          scale: item.scale || 1,
+          selected: false
+        };
+      });
+
+      this.setData({
+        coopOptions: options
+      });
+      console.log('>>> [联系页] 合作选项加载完成:', options);
+    }
   },
 
   onScroll(e) {
@@ -71,7 +97,7 @@ Page({
     };
 
     wx.request({
-      url: 'https://pixos.dpdns.org/api/submit', 
+      url: `${config.SERVER_HOST}/api/submit`, 
       method: 'POST',
       data: payload,
       header: {
@@ -110,4 +136,4 @@ Page({
           coopOptions: this.data.coopOptions.map(i => ({...i, selected: false}))
       });
   }
-})
+});

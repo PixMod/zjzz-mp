@@ -1,0 +1,25 @@
+<view class="container">
+  <image class="bg-layer" src="{{bgImage}}" mode="aspectFill" style="filter: blur(6rpx);"></image>
+  
+  <view class="header-fixed">
+    <view class="nav-back" bindtap="goBack">
+      <image src="{{icoPath}}/nav-back.png" class="back-icon"></image>
+      <text>返回</text>
+    </view>
+    <view class="grid-title-container">
+      <image class="title-bg" src="{{icoPath}}/fixed-header-bg.png" mode="widthFix"></image>
+      <text>施工现场</text>
+    </view>
+  </view>
+
+  <scroll-view scroll-y class="photo-scroll" enhanced show-scrollbar="{{false}}">
+    <view class="photo-list">
+      <block wx:for="{{photos}}" wx:key="*this">
+        <view class="photo-item">
+          <image src="{{item}}" mode="widthFix" class="site-img" lazy-load></image>
+        </view>
+      </block>
+      <view style="height: 0rpx;"></view>
+    </view>
+  </scroll-view>
+</view>

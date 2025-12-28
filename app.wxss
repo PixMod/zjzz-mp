@@ -25,7 +25,7 @@ view, text, image, scroll-view {
 
 .header-fixed {
   position: fixed; top: 72rpx; left: 0; width: 100%; z-index: 100;
-  display: flex; justify-content: center;
+  display: flex; justify-content: center; align-items: center;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .grid-title-container {
